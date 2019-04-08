@@ -63,7 +63,7 @@ class Build:
 <script type="text/javascript">
 window.onload=function(){{
     {js}
-}}
+}};
 </script>
 </head>
 <body>

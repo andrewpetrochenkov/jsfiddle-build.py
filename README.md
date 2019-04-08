@@ -1,5 +1,6 @@
 <!--
 https://pypi.org/project/readme-generator/
+https://pypi.org/project/python-readme-generator/
 -->
 
 [![](https://img.shields.io/pypi/pyversions/jsfiddle-build.svg?longCache=True)](https://pypi.org/project/jsfiddle-build/)
@@ -52,19 +53,18 @@ class|`__doc__`
 -|-
 `jsfiddle_build.Build` |methods: `render()`, `save(path)`
 
-#### CLI
-usage|`__doc__`
--|-
-`python -m jsfiddle_build path ...` |build `build.html` from jsfiddle files (`demo.css`, `demo.details`,`demo.js`,`demo.html`)
-
 #### Examples
 ```bash
-$ python -m jsfiddle_build path/to/jsfiddle
+$ find . -name "demo.html" | xargs python -m jsfiddle_build
 ```
 
-```bash
-$ find . -name "demo.html" | sed 's#/[^/]*$##' | xargs python -m jsfiddle_build
-```
+paths with spaces:
+
+OS|speed|command
+-|-|-
+Linux|fast|`find . -name "demo.html" -print0 | xargs -d '\n' python -m jsfiddle_build`
+macOS|fast|`find . -name "demo.html" -print0 | xargs -0 python -m jsfiddle_build`
+any|slow|`find . -name "demo.html" -exec python -m jsfiddle_build {} \;`
 
 #### Related projects
 +   [`jsfiddle.py` - jsfiddle helper](https://pypi.org/project/jsfiddle/)
@@ -76,5 +76,5 @@ $ find . -name "demo.html" | sed 's#/[^/]*$##' | xargs python -m jsfiddle_build
 +   [Display fiddle from a Github repository](https://docs.jsfiddle.net/github-integration/untitled-1)
 
 <p align="center">
-    <a href="https://pypi.org/project/readme-generator/">readme-generator</a>
+    <a href="https://pypi.org/project/python-readme-generator/">python-readme-generator</a>
 </p>

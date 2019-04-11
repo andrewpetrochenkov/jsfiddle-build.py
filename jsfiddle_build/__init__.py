@@ -11,7 +11,7 @@ class Build:
     @property
     def css(self):
         path = os.path.join(os.getcwd(), "demo.css")
-        return open(path).read() if os.path.exists(path) else ""
+        return open(path).read().strip() if os.path.exists(path) else ""
 
     @property
     def details(self):
@@ -28,12 +28,12 @@ class Build:
     @property
     def js(self):
         path = os.path.join(os.getcwd(), "demo.js")
-        return open(path).read() if os.path.exists(path) else ""
+        return open(path).read().strip() if os.path.exists(path) else ""
 
     @property
     def html(self):
         path = os.path.join(os.getcwd(), "demo.html")
-        return open(path).read()
+        return open(path).read().strip()
 
     @property
     def head(self):
@@ -43,6 +43,16 @@ class Build:
                 lines.append('<link rel="stylesheet" type="text/css" href="%s">' % r)
             if os.path.splitext(r)[1] == ".js" or ".js" in r:
                 lines.append('<script type="text/javascript" src="%s"></script>' % r)
+        if self.css:
+            lines.append("""<style type="text/css">
+%s
+</style>""" % self.css)
+        if self.js:
+            lines.append("""<script type="text/javascript">
+window.onload=function(){{
+%s
+}};
+</script>""" % self.js)
         return "\n".join(lines)
 
     def render(self):
@@ -57,14 +67,6 @@ class Build:
 <head>
 <title>{name}</title>
 {head}
-<style type="text/css">
-    {css}
-</style>
-<script type="text/javascript">
-window.onload=function(){{
-    {js}
-}};
-</script>
 </head>
 <body>
     {html}
@@ -80,4 +82,3 @@ window.onload=function(){{
 
     def __str__(self):
         return self.render()
-

@@ -62,8 +62,8 @@ paths with spaces:
 
 OS|speed|command
 -|-|-
-Linux|fast|`find . -name "demo.html" -print0 | xargs -d '\n' python -m jsfiddle_build`
-macOS|fast|`find . -name "demo.html" -print0 | xargs -0 python -m jsfiddle_build`
+Linux|fast|`find . -name "demo.html" -print0 \| xargs -d '\n' python -m jsfiddle_build`
+macOS|fast|`find . -name "demo.html" -print0 \| xargs -0 python -m jsfiddle_build`
 any|slow|`find . -name "demo.html" -exec python -m jsfiddle_build {} \;`
 
 #### Related projects

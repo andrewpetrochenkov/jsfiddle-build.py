@@ -25,8 +25,9 @@ class Build:
     def yaml(self):
         for filename in ["demo.details", "fiddle.manifest"]:
             path = os.path.join(os.getcwd(), filename)
-            with open(path, 'r') as stream:
-                return yaml.load(stream)
+            if os.path.exists(path):
+                with open(path, 'r') as stream:
+                    return yaml.load(stream)
         return {}
 
     @property

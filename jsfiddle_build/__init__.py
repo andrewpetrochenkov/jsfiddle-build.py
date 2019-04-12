@@ -1,7 +1,12 @@
 #!/usr/bin/env python
-import jsfiddle
 import os
 import public
+import yaml
+
+"""
+https://docs.jsfiddle.net/github-integration/untitled-1 Display fiddle from Gist
+https://docs.jsfiddle.net/github-integration/untitled   Display fiddle from a Github repository
+"""
 
 
 @public.add
@@ -10,30 +15,43 @@ class Build:
 
     @property
     def css(self):
-        path = os.path.join(os.getcwd(), "demo.css")
-        return open(path).read().strip() if os.path.exists(path) else ""
+        for filename in ["demo.css", "fiddle.css"]:
+            path = os.path.join(os.getcwd(), filename)
+            if os.path.exists(path):
+                return open(path).read().strip()
+        return ""
 
     @property
-    def details(self):
-        return jsfiddle.details.load()
+    def yaml(self):
+        for filename in ["demo.details", "fiddle.manifest"]:
+            path = os.path.join(os.getcwd(), filename)
+            with open(path, 'r') as stream:
+                return yaml.load(stream)
+        return {}
 
     @property
     def name(self):
-        return self.details.get("name", os.path.basename(os.getcwd()))
+        return self.yaml.get("name", os.path.basename(os.getcwd()))
 
     @property
     def resources(self):
-        return self.details.get("resources", [])
+        return self.yaml.get("resources", [])
 
     @property
     def js(self):
-        path = os.path.join(os.getcwd(), "demo.js")
-        return open(path).read().strip() if os.path.exists(path) else ""
+        for filename in ["demo.js", "fiddle.js"]:
+            path = os.path.join(os.getcwd(), filename)
+            if os.path.exists(path):
+                return open(path).read().strip()
+        return ""
 
     @property
     def html(self):
-        path = os.path.join(os.getcwd(), "demo.html")
-        return open(path).read().strip()
+        for filename in ["demo.html", "fiddle.html"]:
+            path = os.path.join(os.getcwd(), filename)
+            if os.path.exists(path):
+                return open(path).read().strip()
+        return ""
 
     @property
     def head(self):

@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+__all__ = ['Build']
+
+
 import os
-import public
 import yaml
 
 """
@@ -9,7 +10,6 @@ https://docs.jsfiddle.net/github-integration/untitled   Display fiddle from a Gi
 """
 
 
-@public.add
 class Build:
     """methods: `render()`, `save(path)`"""
 
@@ -59,9 +59,11 @@ class Build:
         lines = []
         for r in self.resources:
             if os.path.splitext(r)[1] == ".css" or ".css" in r:
-                lines.append('<link rel="stylesheet" type="text/css" href="%s">' % r)
+                lines.append(
+                    '<link rel="stylesheet" type="text/css" href="%s">' % r)
             if os.path.splitext(r)[1] == ".js" or ".js" in r:
-                lines.append('<script type="text/javascript" src="%s"></script>' % r)
+                lines.append(
+                    '<script type="text/javascript" src="%s"></script>' % r)
         if self.css:
             lines.append("""<style type="text/css">
 %s
